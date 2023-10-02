@@ -125,11 +125,11 @@
 		</div>
 		<div class="row">
 			<div class="col-md-12 col-xs-12">
-				<p align="justify">Diffractive blur and low light levels are two fundamental challenges in producing high-quality photographs in under- display cameras (UDCs). In this paper, we incorporate phase masks on display panels to tackle both challenges. Our design inserts two phase masks, specifically two mi- crolens arrays, in front of and behind a display panel. The first phase mask concentrates light on the locations where the display is transparent so that more light passes through the display, and the second phase mask reverts the effect of the first phase mask. We further optimize the folding height of each microlens to improve the quality of PSFs and sup- press chromatic aberration. We evaluate our design using a physically-accurate simulator based on Fourier optics. The proposed design is able to double the light throughput while improving the invertibility of the PSFs. Lastly, we discuss the effect of our design on the display quality and show that implementation with polarization-dependent phase masks can leave the display quality uncompromised.</p>
+				<p align="justify">Diffractive blur and low light levels are two fundamental challenges in producing high-quality photographs in under-display cameras (UDCs). In this paper, we incorporate phase masks on display panels to tackle both challenges. Our design inserts two phase masks, specifically two microlens arrays, in front of and behind a display panel. The first phase mask concentrates light on the locations where the display is transparent so that more light passes through the display, and the second phase mask reverts the effect of the first phase mask. We further optimize the folding height of each microlens to improve the quality of PSFs and suppress chromatic aberration. We evaluate our design using a physically-accurate simulator based on Fourier optics. The proposed design can double the light throughput while improving the invertibility of the PSFs. Lastly, we discuss the effect of our design on the display quality and show that implementation with polarization-dependent phase masks can leave the display quality uncompromised.</p>
 			</div>
 			<div class="col-md-12 col-xs-12 text-center">
-				<h4>5-min narrated video</h4>
 				<iframe width="736" height="414" src="https://www.youtube.com/embed/Xlzl3sQ9W0w" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+				<p><b>5-min narrated video</b></p>
 			</div>
 		</div>
 		<hr>
@@ -154,27 +154,72 @@
 			</div>
 		</div>
 		<hr>
-	</div>
+	</div>-->
 
 	<div class="container">
 		<div class="pager-header">
 			<a class="anchor" name="key_idea"></a>
-			<h2>Key Idea: Neural Kaleidoscopic Space Sculpting</h2>
+			<h2>Key Idea</h2>
 		</div>
 		<div class="row">
+			<div class="col-md-12 col-xs-12">
+				<h4>Motivation</h4>
+				<p align="justify">
+					Diffractive blur in a UDC is produced by the small openings 
+					on the display pixels that have sizes comparable to the wavelength of incident light. 
+					Smaller opening results in a more severe diffraction blur. 
+					Our key intuition is to <i>optically</i> expand the size of display openings, 
+					i.e. let a larger portion of light pass through display openings, by inserting phase
+					masks. 
+					<!--We propose to insert two phase masks, one in front of and one behind the TOLED
+					display. The first phase mask modulates light incident on the display so that, 
+					after propagating for some distance, most of the intensity of the wavefront is 
+					concentrated at the display openings. The second phase mask modulates the diffused wavefront 
+					so as to revert the effect of the first phase mask. 
+					Under certain assumption, the display panel would be rendered invisible.-->
+				</p>
+			</div>
+			<!--<div class="col-md-4 col-xs-12 text-center">
+				<img src="images/overview.png" height="280" alt="" class="adaptive-image">
+				<p>Overview: Inserting phase masks on both side of a display.</p>
+			</div>-->
+		</div>
+
+		<div class="row">
 			<div class="col-md-8 col-xs-12">
-				<p align="justify">To solve labeling and geometry reconstruction jointly from a kaleidoscopic image, we propose a method that we call kaleidoscopic space sculpting, which updates the shape both in additive and subtractive ways without the necessity of labels. Our method uses two observations, which follow from the definitions of background and foreground pixels.</p>
-				<p><b>Observation 1.</b><i> Background rays do not intersect with the object for all bounces.</i></p>
-				<p><b>Observation 2.</b><i> Foreground rays intersect with the object for at least one bounce.</i></p>
-				<p>From these observations, we can update the 3D shape by carving the points on the background rays, as they will never intersect the object; and modeling a point on the foreground rays, as there will be at least one intersection with the object.</p>
-				
-				<p><b>Point selection and labeling:</b> The point selection for carving is straightforward, as all bounces can be used for carving in background rays.
-				However, this is problematic for foreground rays, as we do not know which foreground ray bounce will intersect with the object among all the possible bounces. We pick the foreground bounce with the minimum distance value in each iteration for selecting the modeling points. This turns out to be a simple yet effective approach.
+				<h4>Proposed design: Double-sided microlens array</h4>
+				<p align="justify">Our design is to place two microlens arrays (MLA) with equal focal lengths on both sides of the display such that the display panel lies in the focal plane of both MLAs, as shown in Figure (a) on the right. The first microlens array modulates light incident on the display so that, after propagating for some distance, most of the intensity of the wavefront is concentrated at the display openings. The second microlens array diverges the light back to a parallel beam. Compared to UDCs with a pure display, the proposed setup allows a larger portion of light to reach to camera's main lens and therefore improves the conditioning of incident wavefront and SNR. However, as shown in Figure (b), the microlens array in front of the display also modulates light emitting from the display pixels and negatively affects the display quality.
 				</p>
 			</div>
 			<div class="col-md-4 col-xs-12 text-center">
-				<img src="images/point_selection_.png" height="280" alt="" class="adaptive-image">
-				<p>Point selection for sculpting</p>
+				<img src="images/geometric.png" height="280" alt="" class="adaptive-image">
+			</div>
+			<br><br>
+		</div>
+
+		<div class="row">
+			<div class="col-md-8 col-xs-12">
+				<h4>Alleviate the effect on display quality</h4>
+				<p align="justify"><i>Polarization-dependent implementation.</i> 
+					To keep the display quality untouched, we implement 
+					MLAs as polarization-dependent optics and place a pair of orthogonal linear 
+					polarizers on both sides of the display panel. In this way, any light emitting
+					from the display is free of modulation of the phase mask. 
+					A detailed working principle is described in the paper.
+					Since polarization-dependent optical elements are only available in thin formats,
+					we fold the microlens arrays into thin phase masks, as shown on the right.
+				</p>
+				<p align="justify"><i>Optimizing the height map of phase mask.</i> 
+					A thin phase plate with a fixed height tends to produce chromatic aberration.
+					We therefore optimize a different height for each microlens. This
+					optimization improves the overall PSF quality across RGB channels and 
+					eliminates chromatic aberration.
+				</p>
+			</div>
+			<div class="col-md-4 col-xs-12 text-center">
+				<br><br>
+				<img src="images/thick-vs-phasemask.png" height="280" alt="" class="adaptive-image">
+				<p>Folding MLAs to thin phase plates</p>
 			</div>
 		</div>
 		<hr>
@@ -187,13 +232,82 @@
 			<h2>Results</h2>
 		</div>
 		<div class="row">
+			<div class="col-md-12 col-xs-12">
+				<h4>Qualitative results</h4>
+				<p align="justify">We show qualitative results from UDCs under TOLED displays without and with our proposed phase masks. 
+				All TOLED displays have a pixel density of around 600 Dot Per Inch. 
+				Our phase masks have a thickness of around 5 microns. 
+				Note that we are able to largely suppress the ringing artifacts simply by adding phase masks to TOLED displays.
+				</p>
+			</div>
+			<div class="col-md-6 col-xs-6 text-center">
+				<img src="images/result_1.gif" height="315" alt="" class="adaptive-image">
+				<p>Example 1</p>
+			</div>
+			<div class="col-md-6 col-xs-6 text-center">
+				<img src="images/result_2.gif" height="315" alt="" class="adaptive-image">
+				<p>Example 2</p>
+			</div>
+			<div class="col-md-6 col-xs-6 text-center">
+				<img src="images/result_3.gif" height="315" alt="" class="adaptive-image">
+				<p>Example 3</p>
+			</div>
+			<div class="col-md-6 col-xs-6 text-center">
+				<img src="images/result_4.gif" height="315" alt="" class="adaptive-image">
+				<p>Example 4</p>
+			</div>
 			<div class="col-md-12 col-xs-12 text-center">
-				<img src="images/results_full.png" alt="" class="adaptive-image">
-				<p>Real object reconstructions from neural kaleidoscopic space sculpting</p>
+				<p><b>Figure 1. Qualitative results from UDCs under TOLED and ours.</b></p>
+				<br><br>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-md-6 col-xs-6">
+				<h4>Quantitative results</h4>
+				<p align="justify">We compare TOLED without and with two sets of proposed 
+					phase masks that have thicknesses of around 1 μm and 5 μm. For each thickness, 
+					we compare three choices of wrapping heights — a fixed height determined 
+					by λ_0 = 530 nm, different heights determined by wavelengths uniformly sampled 
+					from 400 nm to 700 nm, and optimized heights. Figure 2 shows that the proposed 
+					setups outperform TOLED at all light levels. At 1 μm, the optimized height map 
+					largely outperforms the fixed one; while at 5 μm, different designs perform similarly. 
+					Because thinner phase masks have more phase wrappings and are more sensitive to 
+					the selection of d0. At 5μm, the phase mask is quite similar to a thick lens and 
+					the system performance is more consistent across different choices of d_0.
+				</p>
+			</div>
+			<div class="col-md-6 col-xs-6 text-center">
+				<img src="images/quantitative.png" height="315" alt="" class="adaptive-image">
+				<p><b>Figure 2. Quantitative comparison of our setup with TOLED.</b></p>
+				<br><br>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-md-4 col-xs-6">
+				<h4>Comparison with other displays</h4>
+				<p align="justify">We compare our design with two display layouts commonly used 
+					in smartphone screens, TOLED and POLED, and two display layouts designed 
+					specifically for UDCs. Table 1 summarizes the design, LTR, and imaging performance. 
+					We list averaged PSNR(↑) and SSIM(↑) across different scenes and light levels. 
+					Figure 3 shows qualitative results. Ours falls into the category of requiring no 
+					change of the display openings and outperforms the other two common displays, TOLED 
+					and POLED. While Yang and Sankaranarayanan and ZTE Axon have higher imaging quality, 
+					the modifications of the display have nontrivial negative effects on the display quality.
+					<br>
+				</p>
+				<img src="images/compare_with_displays_quantitative.png" height="315" alt="" class="adaptive-image">
+				<p><b>Table 1. Comparing ours with other OLED displays.</b> </p>
+			</div>
+			<div class="col-md-8 col-xs-6 text-center">
+				<img src="images/compare_with_displays.png" height="315" alt="" class="adaptive-image">
+				<p><b>Figure 3. Quantitative comparison of our setup with other displays.</b></p>
+				<br><br>
 			</div>
 		</div>
 		<hr>
-	</div> -->
+	</div>
 
 
 	<div class="container">
@@ -274,7 +388,7 @@
 
 		<div class='row'>
 			<div class="col-xs-12">
-				<p>We thank Prof. Ioannis Gkioulekas for providing this website template. This work is/was supported by Global Research Outreach program of Samsung Advanced Institute of Technology and the NSF CAREER award CCF-1652569.</p>
+				<p>We thank Ioannis Gkioulekas for providing this website template. This work is/was supported by Global Research Outreach program of Samsung Advanced Institute of Technology and the NSF CAREER award CCF-1652569.</p>
 			</div>
 		</div>
 	</div>
